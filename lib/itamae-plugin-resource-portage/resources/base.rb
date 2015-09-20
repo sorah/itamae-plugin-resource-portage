@@ -22,9 +22,9 @@ module ItamaePluginResourcePortage
           if attributes.version
             _, op, version, slot = attributes.version.match(/\A(!=|>|>=|=|<=|<|~)?(.+)(:.+)?\z/).to_a
 
-            slot = attributes.slot if slot.empty?
+            slot = attributes.slot if slot.nil? || slot.empty?
             attributes.slot = slot
-            attributes.op = op unless op.empty?
+            attributes.op = op unless slot.nil? || slot.empty?
 
             "#{op}#{attributes.name}-#{version}#{slot}"
           else
