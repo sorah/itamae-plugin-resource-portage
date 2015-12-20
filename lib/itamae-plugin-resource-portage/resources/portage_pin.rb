@@ -9,12 +9,12 @@ module ItamaePluginResourcePortage
       define_attribute :action, default: :pin
       define_attribute :version, type: String, required: true
 
-      def action_pin(options)
-        Itamae::RecipeChildren.new([mask(:add), unmask(:add)]).run(options)
+      def action_pin
+        Itamae::RecipeChildren.new([mask(:add), unmask(:add)]).run
       end
 
-      def action_unpin(options)
-        Itamae::RecipeChildren.new([mask(:remove), unmask(:remove)]).run(options)
+      def action_unpin
+        Itamae::RecipeChildren.new([mask(:remove), unmask(:remove)]).run
       end
 
       private

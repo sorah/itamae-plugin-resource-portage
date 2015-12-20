@@ -13,7 +13,8 @@ describe ItamaePluginResourcePortage::Resources::PortagePin do
   let(:unmask_file) { unmask_dir.join('itamae') }
 
   let(:backend) { Itamae::Backend.create(:local) }
-  let(:runner) { double('runner', backend: backend) }
+  let(:handler) { double('handler').tap { |_| allow(_).to receive(:event) { |*__, &b| b[] if b } } }
+  let(:runner) { double('runner', tmpdir: tmpdir.join('runner').tap(&:mkpath), options: {}, dry_run?: false, backend: backend, handler: handler) }
   let(:recipe) { double('recipe', runner: runner, children: double('children', subscribing: [])) }
 
   before do
