@@ -20,7 +20,7 @@ module ItamaePluginResourcePortage
       def atom
         @atom ||= attributes.atom or begin
           if attributes.version
-            _, op, version, slot = attributes.version.match(/\A(!=|>|>=|=|<=|<|~)?(.+)(:.+)?\z/).to_a
+            _, op, version, slot = attributes.version.match(/\A(!=|>=|>|=|<=|<|~)?(.+)(:.+)?\z/).to_a
 
             slot = attributes.slot if slot.nil? || slot.empty?
             attributes.slot = slot
