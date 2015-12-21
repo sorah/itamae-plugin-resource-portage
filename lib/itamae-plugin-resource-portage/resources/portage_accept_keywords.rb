@@ -3,7 +3,7 @@ require 'itamae-plugin-resource-portage/resources/portage_file_base'
 module ItamaePluginResourcePortage
   module Resources
     class PortageAcceptKeywords < PortageFileBase
-      define_attribute :keywords, type: Array
+      define_attribute :keywords, type: [String, Array, NilClass]
 
       def value
         attributes.keywords || default_accept_keywords
