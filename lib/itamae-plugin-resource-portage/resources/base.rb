@@ -19,18 +19,36 @@ module ItamaePluginResourcePortage
 
       def atom
         @atom ||= attributes.atom or begin
-          if attributes.version
+          case
+          when attributes.version
             _, op, version, slot = attributes.version.match(/\A(!=|>=|>|=|<=|<|~)?(.+)(:.+)?\z/).to_a
 
-            slot = attributes.slot if slot.nil? || slot.empty?
-            attributes.slot = slot
-            attributes.op = op unless slot.nil? || slot.empty?
+            # XXX:
+            if slot.nil? || slot.empty?
+              if attributes.slot
+                slot = ":#{attributes.slot}" 
+              end
+            else
+              attributes.slot = slot[1..-1]
+            end
+
+            if op.nil? || op.empty?
+              op = '='
+            end
+            @op = op
 
             "#{op}#{attributes.name}-#{version}#{slot}"
-          else
+          when attributes.name
+            @op = nil
             attributes.name
+          else
+            raise ArgumentError, "Can't determine atom"
           end
         end
+      end
+
+      def atom_op
+        atom; @op
       end
     end
   end
