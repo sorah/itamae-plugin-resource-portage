@@ -10,4 +10,4 @@ require 'itamae-plugin-resource-portage/resources/portage_pin'
 
 require 'itamae-plugin-resource-portage/resources/portage_package'
 
-# require 'itamae-plugin-resource-portage/resources/portage'
+require 'itamae-plugin-resource-portage/resources/portage'
