@@ -55,14 +55,7 @@ module ItamaePluginResourcePortage
         end
 
         if modified
-          begin
-            tempfile = Tempfile.new('portage_file')
-            tempfile.puts lines.join(?\n)
-          ensure
-            tempfile.close
-          end
-
-          backend.send_file(tempfile.path, target)
+          send_file(lines.join(?\n))
           updated!
         end
       end
@@ -72,16 +65,24 @@ module ItamaePluginResourcePortage
 
         new_lines = lines.reject { |_| target_line_pattern === _ }
         if lines.size != new_lines.size
-          begin
-            tempfile = Tempfile.new('portage_file')
-            tempfile.puts new_lines.join(?\n)
-          ensure
-            tempfile.close
-          end
-
-          backend.send_file(tempfile.path, target)
+          send_file(new_lines.join(?\n))
           updated!
         end
+      end
+
+      def send_file(content)
+        ensure_target_directory
+
+        tempfile = Tempfile.new('portage_file')
+        tempfile.puts content
+        tempfile.flush
+
+        remote_temppath = ::File.join(runner.tmpdir, "#{self.class.name.split('::').last}-#{Time.now.to_f.to_s}")
+        backend.send_file(tempfile.path, remote_temppath)
+        run_specinfra(:change_file_mode, remote_temppath, '0644')
+        run_specinfra(:move_file, remote_temppath, target)
+      ensure
+        tempfile.close if tempfile
       end
 
       def set_current_attributes
