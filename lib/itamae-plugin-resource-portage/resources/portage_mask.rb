@@ -1,8 +1,8 @@
-require 'itamae-plugin-resource-portage/resources/portage_file_base'
+require 'itamae-plugin-resource-portage/portage_file_resource_base'
 
 module ItamaePluginResourcePortage
   module Resources
-    class PortageMask < PortageFileBase
+    class PortageMask < PortageFileResourceBase
       def value
         true
       end

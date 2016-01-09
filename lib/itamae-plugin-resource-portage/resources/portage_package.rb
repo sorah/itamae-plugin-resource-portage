@@ -1,8 +1,8 @@
-require 'itamae-plugin-resource-portage/resources/base'
+require 'itamae-plugin-resource-portage/resource_base'
 
 module ItamaePluginResourcePortage
   module Resources
-    class PortagePackage < Base
+    class PortagePackage < ResourceBase
       define_attribute :action, default: :install
       define_attribute :emerge_cmd, type: String, default: '/usr/bin/emerge'
       define_attribute :eix_cmd, type: String, default: '/usr/bin/eix'

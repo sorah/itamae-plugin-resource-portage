@@ -1,5 +1,5 @@
 require 'itamae/resource/base'
-require 'itamae-plugin-resource-portage/resources/base'
+require 'itamae-plugin-resource-portage/resource_base'
 require 'itamae-plugin-resource-portage/resources/portage_package'
 require 'itamae-plugin-resource-portage/resources/portage_accept_keywords'
 require 'itamae-plugin-resource-portage/resources/portage_mask'
@@ -10,7 +10,7 @@ require 'itamae-plugin-resource-portage/resources/portage_use'
 module ItamaePluginResourcePortage
   module Resources
     class Portage < Itamae::Resource::Base
-      include Base::Attributes
+      include ResourceBase::Attributes
       define_attribute :action, default: :install
 
       define_attribute :emerge_cmd, type: String, default: '/usr/bin/emerge'

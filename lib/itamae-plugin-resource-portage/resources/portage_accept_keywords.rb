@@ -1,8 +1,8 @@
-require 'itamae-plugin-resource-portage/resources/portage_file_base'
+require 'itamae-plugin-resource-portage/portage_file_resource_base'
 
 module ItamaePluginResourcePortage
   module Resources
-    class PortageAcceptKeywords < PortageFileBase
+    class PortageAcceptKeywords < PortageFileResourceBase
       define_attribute :keywords, type: [String, Array, NilClass]
 
       def value

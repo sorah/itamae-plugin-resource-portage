@@ -1,8 +1,8 @@
-require 'itamae-plugin-resource-portage/resources/portage_file_base'
+require 'itamae-plugin-resource-portage/portage_file_resource_base'
 
 module ItamaePluginResourcePortage
   module Resources
-    class PortageUse < PortageFileBase
+    class PortageUse < PortageFileResourceBase
       define_attribute :flags, type: Array
 
       def value

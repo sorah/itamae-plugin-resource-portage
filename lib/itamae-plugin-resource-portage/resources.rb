@@ -1,6 +1,6 @@
-require 'itamae-plugin-resource-portage/resources/base'
+require 'itamae-plugin-resource-portage/resource_base'
 
-require 'itamae-plugin-resource-portage/resources/portage_file_base'
+require 'itamae-plugin-resource-portage/portage_file_resource_base'
 require 'itamae-plugin-resource-portage/resources/portage_use'
 require 'itamae-plugin-resource-portage/resources/portage_accept_keywords'
 require 'itamae-plugin-resource-portage/resources/portage_mask'

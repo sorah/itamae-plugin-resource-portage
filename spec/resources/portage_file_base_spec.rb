@@ -1,9 +1,9 @@
 require 'spec_helper'
 require 'itamae'
 require 'fileutils'
-require 'itamae-plugin-resource-portage/resources/portage_file_base'
+require 'itamae-plugin-resource-portage/portage_file_resource_base'
 
-describe ItamaePluginResourcePortage::Resources::PortageFileBase do
+describe ItamaePluginResourcePortage::PortageFileResourceBase do
   let(:tmpdir) { Pathname.new(Dir.mktmpdir('portagefilebasespec')) }
   let(:target_default_directory) { tmpdir.join('target').tap(&:mkpath) }
   let(:target_file) { target_default_directory.join('itamae') }
