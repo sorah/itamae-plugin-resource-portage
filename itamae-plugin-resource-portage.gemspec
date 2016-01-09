@@ -6,11 +6,10 @@ require 'itamae-plugin-resource-portage/version'
 Gem::Specification.new do |spec|
   spec.name          = "itamae-plugin-resource-portage"
   spec.version       = ItamaePluginResourcePortage::VERSION
-  spec.authors       = ["Shota Fukumori (sora_h)"]
+  spec.authors       = ["sorah (Shota Fukumori)"]
   spec.email         = ["her@sorah.jp"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = %q{Itamae resources for Gentoo Portage}
   spec.homepage      = "https://github.com/sorah/itamae-plugin-resource-portage"
   spec.license       = "MIT"
 
