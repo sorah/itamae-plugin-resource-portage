@@ -123,7 +123,7 @@ module ItamaePluginResourcePortage
 
         unless result.exit_status.zero?
           errmsg_regex = /#{Regexp.escape(attributes.eix_cmd)}: No such file or directory$/
-          if result.stdout.match(errmsg) || result.stderr.match(errmsg)
+          if result.stdout.match(errmsg_regex) || result.stderr.match(errmsg_regex)
             raise EixNotFound
           end
           return []
