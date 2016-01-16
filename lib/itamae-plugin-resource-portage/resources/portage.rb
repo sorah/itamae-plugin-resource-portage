@@ -41,7 +41,28 @@ module ItamaePluginResourcePortage
         end
       end
 
+      def set_current_attributes
+        if recipe.runner.dry_run?
+          case @current_action
+          when :install
+            install_children.run
+          when :remove
+            remove_children.run
+          end
+        end
+      end
+
       def action_install
+        install_children.run
+      end
+
+      def action_remove
+        remove_children.run
+      end
+
+      private
+
+      def install_children
         recipes = []
         recipes << recipe_use(:add) if attributes.flags
         recipes << recipe_accept_keywords(:add) if accept_keywords?
@@ -52,10 +73,10 @@ module ItamaePluginResourcePortage
           recipes << recipe_unmask(:add)
         end
         recipes << recipe_package(:install)
-        Itamae::RecipeChildren.new(recipes).run
+        Itamae::RecipeChildren.new(recipes)
       end
 
-      def action_remove
+      def remove_children
         recipes = []
         recipes << recipe_use(:remove) if attributes.flags
         recipes << recipe_accept_keywords(:remove) if accept_keywords?
@@ -66,10 +87,8 @@ module ItamaePluginResourcePortage
           recipes << recipe_unmask(:remove)
         end
         recipes << recipe_package(:remove)
-        Itamae::RecipeChildren.new(recipes).run
+        Itamae::RecipeChildren.new(recipes)
       end
-
-      private
 
       def unmask?
         if attributes.unmask.nil?
