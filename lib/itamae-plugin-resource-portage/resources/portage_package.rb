@@ -3,6 +3,8 @@ require 'itamae-plugin-resource-portage/resource_base'
 module ItamaePluginResourcePortage
   module Resources
     class PortagePackage < ResourceBase
+      class EixNotFound < StandardError; end
+
       define_attribute :action, default: :install
       define_attribute :emerge_cmd, type: String, default: '/usr/bin/emerge'
       define_attribute :eix_cmd, type: String, default: '/usr/bin/eix'
@@ -65,7 +67,18 @@ module ItamaePluginResourcePortage
 
       def check_installation
         if eix_determinable?
-          result = eix(attributes.name).find {|_| _[:name] == attributes.name }
+          begin
+            result = eix(attributes.name).find {|_| _[:name] == attributes.name }
+          rescue EixNotFound => e
+            if recipe.runner.dry_run?
+              current.installed = false
+              current.version = nil
+              return
+            else
+              raise 
+            end
+          end
+
           if !result
             raise ArgumentError, "package #{attributes.name} not found on eix"
           end
@@ -109,6 +122,9 @@ module ItamaePluginResourcePortage
         result = run_command(['env', "MYVERSION=<version>:<slot>{!last} {}", attributes.eix_cmd, '--nocolor', '--pure-packages', '--format', "<category>/<name>|<installedversions:MYVERSION>|<bestslotversions:MYVERSION>|<bestversion:MYVERSION>\\n", *options], error: false)
 
         unless result.exit_status.zero?
+          if result.stderr.match(/#{Regexp.escape(attributes.eix_cmd)}: No such file or directory$/)
+            raise EixNotFound
+          end
           return []
         end
 
