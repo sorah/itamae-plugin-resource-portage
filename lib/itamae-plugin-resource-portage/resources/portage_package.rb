@@ -107,7 +107,7 @@ module ItamaePluginResourcePortage
         else
           update = @current_action == :update ? %w(-u) : []
           noreplace = attributes.noreplace ? %w(--noreplace) : []
-          pvn = run_command([attributes.emerge_cmd, '--nospinner', '--color=n', '-pv', *noreplace, *update, atom])
+          pvn = run_command([attributes.emerge_cmd, '--nospinner', '--color=n', '-pv', *noreplace, *update, atom], error: false)
 
           current.installed = /Total: 0 packages/ === pvn.stdout
           if current.installed
