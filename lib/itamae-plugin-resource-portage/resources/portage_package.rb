@@ -122,7 +122,7 @@ module ItamaePluginResourcePortage
         result = run_command(['env', "MYVERSION=<version>:<slot>{!last} {}", attributes.eix_cmd, '--nocolor', '--pure-packages', '--format', "<category>/<name>|<installedversions:MYVERSION>|<bestslotversions:MYVERSION>|<bestversion:MYVERSION>\\n", *options], error: false)
 
         unless result.exit_status.zero?
-          if result.stderr.match(/#{Regexp.escape(attributes.eix_cmd)}: No such file or directory$/)
+          if result.stdout.match(/#{Regexp.escape(attributes.eix_cmd)}: No such file or directory$/)
             raise EixNotFound
           end
           return []
