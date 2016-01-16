@@ -11,8 +11,13 @@ module ItamaePluginResourcePortage
 
       def default_accept_keywords
         @default_accept_keywords ||= begin
-          arch = backend.run_command(%w(eix --print ARCH)).stdout.chomp
-          ["~#{arch}"]
+          eix_arch = backend.run_command(%w(eix --print ARCH), error: false)
+          if eix_arch.exit_status.zero?
+            arch = eix_arch.stdout.chomp
+            ["~#{arch}"]
+          else
+            []
+          end
         end
       end
 
