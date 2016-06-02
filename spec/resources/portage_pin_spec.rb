@@ -14,7 +14,7 @@ describe ItamaePluginResourcePortage::Resources::PortagePin do
 
   let(:backend) { Itamae::Backend.create(:local) }
   let(:handler) { double('handler').tap { |_| allow(_).to receive(:event) { |*__, &b| b[] if b } } }
-  let(:runner) { double('runner', tmpdir: tmpdir.join('runner').tap(&:mkpath), options: {}, dry_run?: false, backend: backend, handler: handler) }
+  let(:runner) { double('runner', tmpdir: tmpdir.join('runner').tap(&:mkpath), options: {}, dry_run?: false, backend: backend, handler: handler, diff_found!: nil) }
   let(:recipe) { double('recipe', runner: runner, children: double('children', subscribing: [])) }
 
   before do
