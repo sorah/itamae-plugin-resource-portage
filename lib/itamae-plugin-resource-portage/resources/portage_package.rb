@@ -96,7 +96,7 @@ module ItamaePluginResourcePortage
             current.version = nil
           end
 
-          if !attributes.version
+          if !attributes.version && @current_action == :update
             attributes.version = if attributes.slot
                                    result[:best_slot_versions][attributes.slot]
                                  else
