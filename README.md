@@ -1,6 +1,18 @@
-# Itamae::Plugin::Resource::Portage
+# itamae-plugin-resource-portage
+
+Portage related resources (flags, keywords, packages) plugin for [itamae](https://github.com/itamae-kitchen/itamae) and [mitamae](https://github.com/k0kubun/mitamae).
 
 ## Installation
+
+### mitamae
+
+```
+mkdir -p ./plugins
+git submodule add https://github.com/sorah/itamae-plugin-resource-portage plugins/itamae-plugin-resource-portage
+# or `git clone`
+```
+
+### itamae
 
 ```ruby
 gem 'itamae-plugin-resource-portage'
