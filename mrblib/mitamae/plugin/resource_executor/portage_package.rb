@@ -120,7 +120,7 @@ module ::MItamae
         def emerge!
           update = desired.upgrading ? %w(-u) : []
           noreplace = desired.noreplace ? %w(--noreplace) : []
-          run_command([attributes.emerge_cmd, '--nospinner', '--color=n', '-v', *update, *noreplace, desired.atom])
+          run_command([attributes.emerge_cmd, '--nospinner', '--color=n', '-v', '--quiet-fail', *update, *noreplace, desired.atom])
           updated!
         end
 

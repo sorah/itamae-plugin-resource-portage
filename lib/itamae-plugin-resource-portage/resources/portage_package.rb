@@ -55,7 +55,7 @@ module ItamaePluginResourcePortage
       def emerge!
         update = @current_action == :update ? %w(-u) : []
         noreplace = attributes.noreplace ? %w(--noreplace) : []
-        run_command([attributes.emerge_cmd, '--nospinner', '--color=n', '-v', *update, *noreplace, atom])
+        run_command([attributes.emerge_cmd, '--nospinner', '--color=n', '-v', '--quiet-fail', *update, *noreplace, atom])
         updated!
       end
 
