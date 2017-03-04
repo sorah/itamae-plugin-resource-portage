@@ -27,6 +27,10 @@ module ItamaePluginResourcePortage
 
       def unmask(_action)
         _version = self.attributes.version
+        unless /^[0-9]/ === _action
+          raise ArgumentError, "PortagePin version should not include operators but #{_version.inspect}"
+        end
+
         PortageUnmask.new(recipe, self.attributes.name) do
           action _action
           version "=#{_version}"

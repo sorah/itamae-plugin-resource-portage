@@ -7,6 +7,9 @@ module ::MItamae
         end
 
         def set_desired_attributes(desired, action)
+          unless /^[0-9]/ === desired.version
+            raise ArgumentError, "PortagePin version should not include operators but #{desired.version.inspect}"
+          end
           case action
           when :pin
             desired.pinned = true
